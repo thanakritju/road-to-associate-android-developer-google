@@ -3,22 +3,23 @@ package com.example.roadtocertificate
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var diceImage: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        diceImage = findViewById(R.id.dice_image)
+
         val rollButton: Button = findViewById(R.id.roll_button)
-        val countUpButton: Button = findViewById(R.id.count_up_button)
         val resetButton: Button = findViewById(R.id.reset_button)
 
         rollButton.setOnClickListener {
             rollDice()
-        }
-        countUpButton.setOnClickListener {
-            countUp()
         }
         resetButton.setOnClickListener {
             reset()
@@ -26,29 +27,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun reset() {
-        val resultText: TextView = findViewById(R.id.result_text)
-        resultText.text = "0"
+        diceImage.setImageResource(R.drawable.empty_dice)
     }
 
     private fun rollDice() {
         val randomInt = (1..6).random()
-        val resultText: TextView = findViewById(R.id.result_text)
-        resultText.text = randomInt.toString()
-    }
-
-    private fun countUp() {
-        val resultText: TextView = findViewById(R.id.result_text)
-
-        var number  = try {
-            resultText.text.toString().toInt()
-        } catch (e: NumberFormatException) {
-            0
+        val drawableResource = when (randomInt) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
         }
-
-        if (number < 6) {
-            number += 1
-        }
-
-        resultText.text = number.toString()
+        diceImage.setImageResource(drawableResource)
     }
 }
