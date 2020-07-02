@@ -3,6 +3,7 @@ package com.example.roadtocertificate
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +19,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun rollDice() {
-        Toast.makeText(this, "button clicked",
-            Toast.LENGTH_SHORT).show()
+        val randomInt = (1..6).random()
+        val resultText: TextView = findViewById(R.id.result_text)
+        resultText.text = randomInt.toString()
     }
 }
