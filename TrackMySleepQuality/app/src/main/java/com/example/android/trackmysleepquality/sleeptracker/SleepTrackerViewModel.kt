@@ -81,7 +81,6 @@ class SleepTrackerViewModel(
                 night.endTimeMilli = System.currentTimeMillis()
                 update(night)
             }
-            tonight.value = null
         }
     }
 
@@ -94,6 +93,7 @@ class SleepTrackerViewModel(
     fun onClearTrackings() {
         uiScope.launch {
             clear()
+            tonight.value = null
         }
     }
 
