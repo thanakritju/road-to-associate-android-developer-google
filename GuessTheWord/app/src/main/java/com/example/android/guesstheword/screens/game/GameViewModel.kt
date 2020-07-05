@@ -31,6 +31,18 @@ class GameViewModel: ViewModel() {
         DateUtils.formatElapsedTime(time)
     }
 
+    val hintNumberOfLetters: LiveData<Int> = Transformations.map(word) { word ->
+        word.length
+    }
+
+    val hintPosition: LiveData<Int> = Transformations.map(word) { word ->
+        word.indices.random() + 1
+    }
+
+    val hintTheLetter: LiveData<Char> = Transformations.map(word) { word ->
+        hintPosition.value?.let { word[it - 1] }
+    }
+
     private val timer: CountDownTimer
 
     // The list of words - the front of the list is the next word to guess
